@@ -1,10 +1,27 @@
-# Portfolio AI
+<div align="center">
+  <h1>Portfolio</h1>
+</div>
 
-**portfolio page**
+<div align="center">
+  <br />
 
-next.js typescript tailwindcss shadcn sanity cms clerk openai
+  <img width="1912" height="940" alt="portfolio" src="https://github.com/user-attachments/assets/aff746e2-aa30-4040-8e3c-b9e82e025684" />
 
-### Build and showcase your professional portfolio with AI-powered features and modern design.
+
+  <br />
+
+  <div>
+    <img src="https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=nextdotjs&color=000000" alt="nextdotjs" />
+    <img src="https://img.shields.io/badge/-Typescript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
+    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
+    <img src="https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff&style=for-the-badge" alt="shadcn" />
+    <img src="https://img.shields.io/badge/-Convex-black?style=for-the-badge&logoColor=white&logo=convex" alt="convex" />
+    <img src="https://img.shields.io/badge/-clerk-k23E?style=for-the-badge&logoColor=777882&logo=clerk&color=000000" alt="clerk" />
+    <img src="https://img.shields.io/badge/-OpenAI-93f6ef?style=for-the-badge&logoColor=FFFFFF&logo=openai&color=0aa982" alt="clerk" />
+  </div>
+
+  <h3 align="center">My portfolio integrated with an AI chatbot assistant to sort your doubts out and help you get to know me better.</h3>
+</div>
 
 ## 📋 About
 
