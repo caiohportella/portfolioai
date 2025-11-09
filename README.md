@@ -15,9 +15,9 @@
     <img src="https://img.shields.io/badge/-Typescript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
     <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
     <img src="https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff&style=for-the-badge" alt="shadcn" />
-    <img src="https://img.shields.io/badge/-Convex-black?style=for-the-badge&logoColor=white&logo=convex" alt="convex" />
     <img src="https://img.shields.io/badge/-clerk-k23E?style=for-the-badge&logoColor=777882&logo=clerk&color=000000" alt="clerk" />
-    <img src="https://img.shields.io/badge/-OpenAI-93f6ef?style=for-the-badge&logoColor=FFFFFF&logo=openai&color=0aa982" alt="clerk" />
+    <img src="https://img.shields.io/badge/-OpenAI-93f6ef?style=for-the-badge&logoColor=FFFFFF&logo=openai&color=0aa982" alt="openai" />
+    <img src="https://img.shields.io/badge/-Sanity-93f6ef?style=for-the-badge&logoColor=FFFFFF&logo=sanity&color=f04436" alt="sanityio" />
   </div>
 
   <h3 align="center">My portfolio integrated with an AI chatbot assistant to sort your doubts out and help you get to know me better.</h3>
