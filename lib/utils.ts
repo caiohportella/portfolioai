@@ -18,11 +18,17 @@ const createIconNameMap = (): Record<string, ComponentType<{ className?: string 
   // Add Lucide Icons FIRST (so they're included and searchable)
   Object.entries(LucideIcons).forEach(([name, Icon]) => {
     // Include all capitalized icon components, excluding internal utilities
+    // Check if it's a valid React component (function or object with render method)
+    const isValidComponent =
+      typeof Icon === "function" ||
+      (typeof Icon === "object" && Icon !== null && "$$typeof" in Icon);
+
     if (
-      typeof Icon === "function" &&
+      isValidComponent &&
       name[0] === name[0].toUpperCase() &&
       name !== "createLucideIcon" &&
-      name !== "Icon"
+      name !== "Icon" &&
+      name.length > 1 // Exclude single character exports
     ) {
       iconMap[name] = Icon as ComponentType<{ className?: string }>;
     }
@@ -55,8 +61,16 @@ export function getSkillIcon(
   iconName?: string | null
 ): ComponentType<{ className?: string }> {
   // If iconName is provided from Sanity, use it directly
-  if (iconName && iconNameMap[iconName]) {
-    return iconNameMap[iconName];
+  if (iconName) {
+    const icon = iconNameMap[iconName];
+    if (icon) {
+      return icon;
+    }
+    // If icon not found, log for debugging (only in development)
+    if (process.env.NODE_ENV === "development") {
+      console.warn(`Icon "${iconName}" not found in iconNameMap. Available keys include:`, 
+        Object.keys(iconNameMap).slice(0, 10).join(", "), "...");
+    }
   }
 
   const normalizedName = skillName.toLowerCase().trim();
