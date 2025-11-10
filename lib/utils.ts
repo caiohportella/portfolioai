@@ -168,6 +168,8 @@ export function getSkillIcon(
     drizzle: databaseIcon,
     "drizzle orm": databaseIcon,
     clerk: usersIcon,
+    kafka: getIconSafe("SiApachekafka", defaultIcon),
+    "apache kafka": getIconSafe("SiApachekafka", defaultIcon),
     shadcn: componentIcon,
     convex: databaseIcon,
     "web accessibility": accessibilityIcon,
