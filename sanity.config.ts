@@ -17,7 +17,7 @@ export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
-  title: "Portfolio",
+  title: "PortfolioAI",
   subtitle: "Content Management System",
   icon: BoltIcon,
   schema,

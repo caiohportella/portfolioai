@@ -415,6 +415,7 @@ export type Skill = {
   percentage?: number;
   yearsOfExperience?: number;
   color?: string;
+  icon?: string;
 };
 
 export type Project = {
@@ -512,6 +513,16 @@ export type Profile = {
     stackoverflow?: string;
   };
   yearsOfExperience?: number;
+  resume?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+  };
   stats?: Array<{
     label?: string;
     value?: string;
@@ -1199,7 +1210,7 @@ export type EXPERIENCE_QUERYResult = Array<{
 
 // Source: ./components/sections/HeroSection.tsx
 // Variable: HERO_QUERY
-// Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  headline,  headlineStaticText,  headlineAnimatedWords,  headlineAnimationDuration,  shortBio,  email,  phone,  location,  availability,  socialLinks,  yearsOfExperience,  profileImage}
+// Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  headline,  headlineStaticText,  headlineAnimatedWords,  headlineAnimationDuration,  shortBio,  email,  phone,  location,  availability,  socialLinks,  yearsOfExperience,  profileImage,  resume{    asset->{      _id,      url,      originalFilename,      extension    }  }}
 export type HERO_QUERYResult = {
   firstName: null;
   lastName: null;
@@ -1215,6 +1226,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: null;
   profileImage: null;
+  resume: null;
 } | {
   firstName: null;
   lastName: null;
@@ -1230,6 +1242,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: number | null;
   profileImage: null;
+  resume: null;
 } | {
   firstName: null;
   lastName: null;
@@ -1245,6 +1258,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: null;
   profileImage: null;
+  resume: null;
 } | {
   firstName: null;
   lastName: null;
@@ -1260,6 +1274,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: null;
   profileImage: null;
+  resume: null;
 } | {
   firstName: string | null;
   lastName: string | null;
@@ -1295,6 +1310,14 @@ export type HERO_QUERYResult = {
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+  } | null;
+  resume: {
+    asset: {
+      _id: string;
+      url: string | null;
+      originalFilename: string | null;
+      extension: string | null;
+    } | null;
   } | null;
 } | null;
 
@@ -1383,7 +1406,7 @@ export type SERVICES_QUERYResult = Array<{
 
 // Source: ./components/sections/SkillsSection.tsx
 // Variable: SKILLS_QUERY
-// Query: *[_type == "skill"] | order(category asc, order asc){  name,  category,  proficiency,  percentage,  yearsOfExperience,  color}
+// Query: *[_type == "skill"] | order(category asc, order asc){  name,  category,  proficiency,  percentage,  yearsOfExperience,  color,  icon}
 export type SKILLS_QUERYResult = Array<{
   name: string | null;
   category: "ai-ml" | "backend" | "cloud" | "database" | "design" | "devops" | "frontend" | "mobile" | "other" | "soft-skills" | "testing" | "tools" | null;
@@ -1391,6 +1414,7 @@ export type SKILLS_QUERYResult = Array<{
   percentage: number | null;
   yearsOfExperience: number | null;
   color: string | null;
+  icon: string | null;
 }>;
 
 // Source: ./components/sections/TestimonialsSection.tsx
@@ -1444,10 +1468,10 @@ declare module "@sanity/client" {
     "*[_id == \"singleton-profile\"][0]{\n  email,\n  phone,\n  location,\n  socialLinks\n}": PROFILE_QUERYResult;
     "*[_type == \"education\"] | order(endDate desc, startDate desc){\n  institution,\n  degree,\n  fieldOfStudy,\n  startDate,\n  endDate,\n  current,\n  gpa,\n  description,\n  achievements,\n  logo,\n  website,\n  order\n}": EDUCATION_QUERYResult;
     "*[_type == \"experience\"] | order(startDate desc){\n  company,\n  position,\n  employmentType,\n  location,\n  startDate,\n  endDate,\n  current,\n  description,\n  responsibilities,\n  achievements,\n  technologies[]->{name, category},\n  companyLogo,\n  companyWebsite\n}": EXPERIENCE_QUERYResult;
-    "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  headline,\n  headlineStaticText,\n  headlineAnimatedWords,\n  headlineAnimationDuration,\n  shortBio,\n  email,\n  phone,\n  location,\n  availability,\n  socialLinks,\n  yearsOfExperience,\n  profileImage\n}": HERO_QUERYResult;
+    "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  headline,\n  headlineStaticText,\n  headlineAnimatedWords,\n  headlineAnimationDuration,\n  shortBio,\n  email,\n  phone,\n  location,\n  availability,\n  socialLinks,\n  yearsOfExperience,\n  profileImage,\n  resume{\n    asset->{\n      _id,\n      url,\n      originalFilename,\n      extension\n    }\n  }\n}": HERO_QUERYResult;
     "*[_type == \"project\" && featured == true] | order(order asc)[0...6]{\n  title,\n  slug,\n  tagline,\n  category,\n  liveUrl,\n  githubUrl,\n  coverImage,\n  technologies[]->{name, category, color}\n}": PROJECTS_QUERYResult;
     "*[_type == \"service\"] | order(order asc, _createdAt desc){\n  title,\n  slug,\n  icon,\n  shortDescription,\n  fullDescription,\n  features,\n  technologies[]->{name, category},\n  deliverables,\n  pricing,\n  timeline,\n  featured,\n  order\n}": SERVICES_QUERYResult;
-    "*[_type == \"skill\"] | order(category asc, order asc){\n  name,\n  category,\n  proficiency,\n  percentage,\n  yearsOfExperience,\n  color\n}": SKILLS_QUERYResult;
+    "*[_type == \"skill\"] | order(category asc, order asc){\n  name,\n  category,\n  proficiency,\n  percentage,\n  yearsOfExperience,\n  color,\n  icon\n}": SKILLS_QUERYResult;
     "*[_type == \"testimonial\" && featured == true] | order(order asc){\n  name,\n  position,\n  company,\n  testimonial,\n  rating,\n  date,\n  avatar,\n  companyLogo,\n  linkedinUrl\n}": TESTIMONIALS_QUERYResult;
   }
 }

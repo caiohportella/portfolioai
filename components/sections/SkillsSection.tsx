@@ -9,7 +9,8 @@ const SKILLS_QUERY =
   proficiency,
   percentage,
   yearsOfExperience,
-  color
+  color,
+  icon
 }`);
 
 export async function SkillsSection() {

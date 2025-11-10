@@ -1,120 +1,141 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import {
-  SiGo,
-  SiFirebase,
-  SiStripe,
-  SiSpring,
-  SiAngular,
-  SiAmazonwebservices,
-  SiDocker,
-  SiFigma,
-  SiFlutter,
-  SiGooglecloud,
-  SiGit,
-  SiGithubactions,
-  SiGraphql,
-  SiJenkins,
-  SiJest,
-  SiKubernetes,
-  SiMongodb,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiGooglegemini,
-  SiClerk,
-  SiOpenai,
-  SiDrizzle,
-  SiPostgresql,
-  SiPython,
-  SiReact,
-  SiRedis,
-  SiTailwindcss,
-  SiShadcnui,
-  SiTypescript,
-  SiVercel,
-} from "react-icons/si";
-import {
-  AiOutlineJava
-} from "react-icons/ai"
-import {
-  Database,
-  Users,
-  Component,
-  Accessibility,
-  Calendar,
-  MessageCircle,
-  Webhook,
-  Code,
-  Lightbulb,
-  Shapes,
-  Brain,
-  BookOpenText,
-} from "lucide-react";
+// Dynamically import all icons from libraries
+import * as SiIcons from "react-icons/si";
+import * as AiIcons from "react-icons/ai";
+import * as LucideIcons from "lucide-react";
 import type { ComponentType } from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Icon mapping function
-export function getSkillIcon(skillName: string): ComponentType<{ className?: string }> {
+// Dynamically create comprehensive icon mapping from all available icons
+const createIconNameMap = (): Record<string, ComponentType<{ className?: string }>> => {
+  const iconMap: Record<string, ComponentType<{ className?: string }>> = {};
+
+  // Add Lucide Icons FIRST (so they're included and searchable)
+  Object.entries(LucideIcons).forEach(([name, Icon]) => {
+    // Include all capitalized icon components, excluding internal utilities
+    if (
+      typeof Icon === "function" &&
+      name[0] === name[0].toUpperCase() &&
+      name !== "createLucideIcon" &&
+      name !== "Icon"
+    ) {
+      iconMap[name] = Icon as ComponentType<{ className?: string }>;
+    }
+  });
+
+  // Add Simple Icons (Si*)
+  Object.entries(SiIcons).forEach(([name, Icon]) => {
+    if (typeof Icon === "function" && name.startsWith("Si")) {
+      iconMap[name] = Icon as ComponentType<{ className?: string }>;
+    }
+  });
+
+  // Add Ant Design Icons (Ai*)
+  Object.entries(AiIcons).forEach(([name, Icon]) => {
+    if (typeof Icon === "function" && name.startsWith("Ai")) {
+      iconMap[name] = Icon as ComponentType<{ className?: string }>;
+    }
+  });
+
+  return iconMap;
+};
+
+// Comprehensive icon mapping by icon name (dynamically loaded)
+export const iconNameMap: Record<string, ComponentType<{ className?: string }>> =
+  createIconNameMap();
+
+// Icon mapping function - now supports iconName from Sanity
+export function getSkillIcon(
+  skillName: string,
+  iconName?: string | null
+): ComponentType<{ className?: string }> {
+  // If iconName is provided from Sanity, use it directly
+  if (iconName && iconNameMap[iconName]) {
+    return iconNameMap[iconName];
+  }
+
   const normalizedName = skillName.toLowerCase().trim();
 
-  // Tech stack icons from react-icons/si
+  // Helper to safely get icons with fallback
+  const getIconByName = (name: string): ComponentType<{ className?: string }> | undefined => {
+    return iconNameMap[name];
+  };
+
+  const getIconSafe = (
+    name: string,
+    fallback: ComponentType<{ className?: string }>
+  ): ComponentType<{ className?: string }> => {
+    return getIconByName(name) || fallback;
+  };
+
+  const defaultIcon = iconNameMap.Code || (() => null);
+  const databaseIcon = iconNameMap.Database || defaultIcon;
+  const usersIcon = iconNameMap.Users || defaultIcon;
+  const componentIcon = iconNameMap.Component || defaultIcon;
+  const bookIcon = iconNameMap.BookOpenText || defaultIcon;
+  const lightbulbIcon = iconNameMap.Lightbulb || defaultIcon;
+  const shapesIcon = iconNameMap.Shapes || defaultIcon;
+  const webhookIcon = iconNameMap.Webhook || defaultIcon;
+
+  // Tech stack icons from react-icons/si (name-based mapping for backward compatibility)
   const iconMap: Record<string, ComponentType<{ className?: string }>> = {
-    golang: SiGo,
-    go: SiGo,
-    firebase: SiFirebase,
-    stripe: SiStripe,
-    drizzle: SiDrizzle,
-    "spring boot": SiSpring,
-    springboot: SiSpring,
-    shadcn: SiShadcnui,
-    java: AiOutlineJava,
-    angular: SiAngular,
-    aws: SiAmazonwebservices,
-    clerk: SiClerk,
-    "amazon web services": SiAmazonwebservices,
-    docker: SiDocker,
-    figma: SiFigma,
-    flutter: SiFlutter,
-    "google cloud platform": SiGooglecloud,
-    gcp: SiGooglecloud,
-    gemini: SiGooglegemini,
-    googlecloud: SiGooglecloud,
-    git: SiGit,
-    "github actions": SiGithubactions,
-    githubactions: SiGithubactions,
-    graphql: SiGraphql,
-    jenkins: SiJenkins,
-    jest: SiJest,
-    kubernetes: SiKubernetes,
-    mongodb: SiMongodb,
-    "next.js": SiNextdotjs,
-    nextjs: SiNextdotjs,
-    "node.js": SiNodedotjs,
-    nodejs: SiNodedotjs,
-    "continuous learning": BookOpenText,
-    "openai api": SiOpenai,
-    "critical thinking": Lightbulb,
-    openai: SiOpenai,
-    postgresql: SiPostgresql,
-    postgres: SiPostgresql,
-    python: SiPython,
-    react: SiReact,
-    "team work": Shapes,
-    "react native": SiReact,
-    reactnative: SiReact,
-    redis: SiRedis,
-    "tailwind css": SiTailwindcss,
-    tailwindcss: SiTailwindcss,
-    tailwind: SiTailwindcss,
-    typescript: SiTypescript,
-    ts: SiTypescript,
-    vercel: SiVercel,
-    websockets: Webhook,
-    websocket: Webhook,
+    golang: getIconSafe("SiGo", defaultIcon),
+    go: getIconSafe("SiGo", defaultIcon),
+    firebase: getIconSafe("SiFirebase", defaultIcon),
+    stripe: getIconSafe("SiStripe", defaultIcon),
+    drizzle: getIconSafe("SiDrizzle", databaseIcon),
+    "spring boot": getIconSafe("SiSpring", defaultIcon),
+    springboot: getIconSafe("SiSpring", defaultIcon),
+    shadcn: getIconSafe("SiShadcnui", componentIcon),
+    java: getIconSafe("AiOutlineJava", defaultIcon),
+    angular: getIconSafe("SiAngular", defaultIcon),
+    aws: getIconSafe("SiAmazonwebservices", defaultIcon),
+    clerk: getIconSafe("SiClerk", usersIcon),
+    "amazon web services": getIconSafe("SiAmazonwebservices", defaultIcon),
+    docker: getIconSafe("SiDocker", defaultIcon),
+    figma: getIconSafe("SiFigma", defaultIcon),
+    flutter: getIconSafe("SiFlutter", defaultIcon),
+    "google cloud platform": getIconSafe("SiGooglecloud", defaultIcon),
+    gcp: getIconSafe("SiGooglecloud", defaultIcon),
+    gemini: getIconSafe("SiGooglegemini", defaultIcon),
+    googlecloud: getIconSafe("SiGooglecloud", defaultIcon),
+    git: getIconSafe("SiGit", defaultIcon),
+    "github actions": getIconSafe("SiGithubactions", defaultIcon),
+    githubactions: getIconSafe("SiGithubactions", defaultIcon),
+    graphql: getIconSafe("SiGraphql", defaultIcon),
+    jenkins: getIconSafe("SiJenkins", defaultIcon),
+    jest: getIconSafe("SiJest", defaultIcon),
+    kubernetes: getIconSafe("SiKubernetes", defaultIcon),
+    mongodb: getIconSafe("SiMongodb", databaseIcon),
+    "next.js": getIconSafe("SiNextdotjs", defaultIcon),
+    nextjs: getIconSafe("SiNextdotjs", defaultIcon),
+    "node.js": getIconSafe("SiNodedotjs", defaultIcon),
+    nodejs: getIconSafe("SiNodedotjs", defaultIcon),
+    "continuous learning": bookIcon,
+    "openai api": getIconSafe("SiOpenai", defaultIcon),
+    "critical thinking": lightbulbIcon,
+    openai: getIconSafe("SiOpenai", defaultIcon),
+    postgresql: getIconSafe("SiPostgresql", databaseIcon),
+    postgres: getIconSafe("SiPostgresql", databaseIcon),
+    python: getIconSafe("SiPython", defaultIcon),
+    react: getIconSafe("SiReact", defaultIcon),
+    "team work": shapesIcon,
+    "react native": getIconSafe("SiReact", defaultIcon),
+    reactnative: getIconSafe("SiReact", defaultIcon),
+    redis: getIconSafe("SiRedis", databaseIcon),
+    "tailwind css": getIconSafe("SiTailwindcss", defaultIcon),
+    tailwindcss: getIconSafe("SiTailwindcss", defaultIcon),
+    tailwind: getIconSafe("SiTailwindcss", defaultIcon),
+    typescript: getIconSafe("SiTypescript", defaultIcon),
+    ts: getIconSafe("SiTypescript", defaultIcon),
+    vercel: getIconSafe("SiVercel", defaultIcon),
+    websockets: webhookIcon,
+    websocket: webhookIcon,
   };
 
   // Check exact match first
@@ -134,26 +155,31 @@ export function getSkillIcon(skillName: string): ComponentType<{ className?: str
   
   // Special handling for "ts" - only match if it's typescript-related
   if (normalizedName === "ts" || normalizedName === "typescript") {
-    return SiTypescript;
+    return getIconSafe("SiTypescript", defaultIcon);
   }
 
   // Fallback icons for specific skills
+  const accessibilityIcon = iconNameMap.Accessibility || defaultIcon;
+  const calendarIcon = iconNameMap.Calendar || defaultIcon;
+  const messageIcon = iconNameMap.MessageCircle || defaultIcon;
+  const brainIcon = iconNameMap.Brain || defaultIcon;
+
   const fallbackMap: Record<string, ComponentType<{ className?: string }>> = {
-    drizzle: Database,
-    "drizzle orm": Database,
-    clerk: Users,
-    shadcn: Component,
-    convex: Database,
-    "web accessibility": Accessibility,
-    accessibility: Accessibility,
-    "agile/scrum": Calendar,
-    agile: Calendar,
-    scrum: Calendar,
-    communication: MessageCircle,
-    "rest api design": Code,
-    "rest api": Code,
-    "responsive design": Code,
-    "problem solving": Brain,
+    drizzle: databaseIcon,
+    "drizzle orm": databaseIcon,
+    clerk: usersIcon,
+    shadcn: componentIcon,
+    convex: databaseIcon,
+    "web accessibility": accessibilityIcon,
+    accessibility: accessibilityIcon,
+    "agile/scrum": calendarIcon,
+    agile: calendarIcon,
+    scrum: calendarIcon,
+    communication: messageIcon,
+    "rest api design": defaultIcon,
+    "rest api": defaultIcon,
+    "responsive design": defaultIcon,
+    "problem solving": brainIcon,
   };
 
   for (const [key, icon] of Object.entries(fallbackMap)) {
@@ -163,7 +189,15 @@ export function getSkillIcon(skillName: string): ComponentType<{ className?: str
   }
 
   // Default fallback
-  return Code;
+  return defaultIcon;
+}
+
+// Get available icon names for Sanity schema
+export function getAvailableIconNames(): Array<{ title: string; value: string }> {
+  return Object.keys(iconNameMap).map((name) => ({
+    title: name,
+    value: name,
+  }));
 }
 
 export default function formatDate(dateString: string): string {

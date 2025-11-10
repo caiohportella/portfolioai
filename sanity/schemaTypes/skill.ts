@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { IconSelector } from "../components/IconSelector";
 
 export default defineType({
   name: "skill",
@@ -66,6 +67,16 @@ export default defineType({
       type: "string",
       description:
         "Hex color code for the skill badge (e.g., #61DAFB for React)",
+    }),
+    defineField({
+      name: "icon",
+      title: "Icon",
+      type: "string",
+      description:
+       "Start typing to search for icons (e.g., 'kafka', 'react', 'database')",
+      components: {
+        input: IconSelector,
+      },
     }),
   ],
   preview: {

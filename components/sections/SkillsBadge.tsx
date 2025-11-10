@@ -13,6 +13,7 @@ interface Skill {
   percentage?: number | null;
   yearsOfExperience?: number | null;
   color?: string | null;
+  icon?: string | null;
 }
 
 interface SkillsBadgeProps {
@@ -68,7 +69,7 @@ export default function SkillsBadge({ skills }: SkillsBadgeProps) {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 {categorySkills.map((skill) => {
                   const skillName = skill.name ?? "Unknown";
-                  const Icon = getSkillIcon(skillName);
+                  const Icon = getSkillIcon(skillName, skill.icon);
                   const skillColor = skill.color || "hsl(var(--primary))";
 
                   return (

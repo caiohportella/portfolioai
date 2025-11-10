@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "createdAt": "2025-11-09T18:54:21.065Z",
+  "createdAt": "2025-11-10T04:05:22.609Z",
   "workspaces": [
     {
       "name": "default",
-      "title": "Portfolio",
+      "title": "PortfolioAI",
       "subtitle": "Content Management System",
       "basePath": "/studio",
       "projectId": "ygemdmb5",
@@ -13,7 +13,7 @@
       "mediaLibrary": {
         "enabled": false
       },
-      "schema": "3b0a529a.create-schema.json",
+      "schema": "faef4ad1.create-schema.json",
       "tools": "c0ec7e2e.create-tools.json"
     }
   ]
