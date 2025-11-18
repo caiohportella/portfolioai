@@ -48,11 +48,19 @@ export async function EducationSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div
+          className={
+            education.length === 1
+              ? "flex justify-center"
+              : "grid grid-cols-1 lg:grid-cols-2 gap-6"
+          }
+        >
           {education.map((edu) => (
             <div
               key={`${edu.institution}-${edu.degree}-${edu.startDate}`}
-              className="group relative bg-card border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300"
+              className={`group relative bg-card border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 ${
+                education.length === 1 ? "w-full max-w-2xl" : ""
+              }`}
             >
               {/* Accent gradient bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-primary via-primary/60 to-primary/30 z-10" />

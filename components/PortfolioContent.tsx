@@ -10,6 +10,7 @@ import { ProjectsSection } from "./sections/ProjectsSection";
 // import { ServicesSection } from "./sections/ServicesSection";
 import { SkillsSection } from "./sections/SkillsSection";
 // import { TestimonialsSection } from "./sections/TestimonialsSection";
+import { FooterSection } from "./sections/FooterSection";
 
 async function PortfolioContent() {
   return (
@@ -26,6 +27,7 @@ async function PortfolioContent() {
       {/* <ServicesSection /> */}
       {/* <BlogSection /> */}
       <ContactSection />
+      <FooterSection />
     </>
   );
 }
