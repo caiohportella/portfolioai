@@ -103,6 +103,8 @@ export async function HeroSection() {
                   {profile.resume?.asset?.url && (
                     <Link
                       href={profile.resume.asset.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       download={profile.resume.asset.originalFilename || "curriculo.pdf"}
                       className="flex items-center justify-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                     >

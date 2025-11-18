@@ -123,6 +123,7 @@ export function getSkillIcon(
     githubactions: getIconSafe("SiGithubactions", defaultIcon),
     graphql: getIconSafe("SiGraphql", defaultIcon),
     jenkins: getIconSafe("SiJenkins", defaultIcon),
+    prisma: getIconSafe("SiPrisma", defaultIcon),
     jest: getIconSafe("SiJest", defaultIcon),
     kubernetes: getIconSafe("SiKubernetes", defaultIcon),
     mongodb: getIconSafe("SiMongodb", databaseIcon),
