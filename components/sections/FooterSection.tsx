@@ -10,7 +10,8 @@ import {
 } from "react-icons/si";
 import { Globe } from "lucide-react";
 
-const SITE_SETTINGS_QUERY = defineQuery(`*[_id == "singleton-siteSettings"][0]{
+const FOOTER_SITE_SETTINGS_QUERY =
+  defineQuery(`*[_id == "singleton-siteSettings"][0]{
   siteTitle,
   footer{
     text,
@@ -23,14 +24,14 @@ const SITE_SETTINGS_QUERY = defineQuery(`*[_id == "singleton-siteSettings"][0]{
   }
 }`);
 
-const PROFILE_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
+const FOOTER_PROFILE_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   socialLinks
 }`);
 
 export async function FooterSection() {
   const [{ data: settings }, { data: profile }] = await Promise.all([
-    sanityFetch({ query: SITE_SETTINGS_QUERY }),
-    sanityFetch({ query: PROFILE_QUERY }),
+    sanityFetch({ query: FOOTER_SITE_SETTINGS_QUERY }),
+    sanityFetch({ query: FOOTER_PROFILE_QUERY }),
   ]);
 
   const footer = settings?.footer;
@@ -70,7 +71,11 @@ export async function FooterSection() {
               </h4>
               <nav className="flex flex-col space-y-3">
                 {footer.links.map(
-                  (link: { title?: string; url?: string; _key: string }) => {
+                  (link: {
+                    title: string | null;
+                    url: string | null;
+                    _key: string;
+                  }) => {
                     if (!link.title || !link.url) return null;
                     return (
                       <Link
@@ -94,7 +99,7 @@ export async function FooterSection() {
                 Conecte-se
               </h4>
               <div className="flex flex-wrap gap-3">
-                {profile.socialLinks.github && (
+                {profile?.socialLinks?.github && (
                   <Link
                     href={profile.socialLinks.github}
                     target="_blank"
@@ -105,7 +110,7 @@ export async function FooterSection() {
                     <SiGithub className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </Link>
                 )}
-                {profile.socialLinks.linkedin && (
+                {profile?.socialLinks?.linkedin && (
                   <Link
                     href={profile.socialLinks.linkedin}
                     target="_blank"
@@ -116,7 +121,7 @@ export async function FooterSection() {
                     <SiLinkedin className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </Link>
                 )}
-                {profile.socialLinks.website && (
+                {profile?.socialLinks?.website && (
                   <Link
                     href={profile.socialLinks.website}
                     target="_blank"
@@ -127,7 +132,7 @@ export async function FooterSection() {
                     <Globe className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </Link>
                 )}
-                {profile.socialLinks.medium && (
+                {profile?.socialLinks?.medium && (
                   <Link
                     href={profile.socialLinks.medium}
                     target="_blank"
@@ -138,7 +143,7 @@ export async function FooterSection() {
                     <SiMedium className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </Link>
                 )}
-                {profile.socialLinks.devto && (
+                {profile?.socialLinks?.devto && (
                   <Link
                     href={profile.socialLinks.devto}
                     target="_blank"
@@ -149,7 +154,7 @@ export async function FooterSection() {
                     <SiDevdotto className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </Link>
                 )}
-                {profile.socialLinks.youtube && (
+                {profile?.socialLinks?.youtube && (
                   <Link
                     href={profile.socialLinks.youtube}
                     target="_blank"
@@ -179,9 +184,8 @@ export async function FooterSection() {
               )}
             </div>
             <p className="text-xs text-muted-foreground/70">
-              Feito com{" "}
-              <span className="inline-block animate-pulse">❤️</span> por{" "}
-              <span className="font-medium">Caio Henrique Portella</span>
+              Feito com <span className="inline-block animate-pulse">❤️</span>{" "}
+              por <span className="font-medium">Caio Henrique Portella</span>
             </p>
           </div>
         </div>
@@ -189,4 +193,3 @@ export async function FooterSection() {
     </footer>
   );
 }
-

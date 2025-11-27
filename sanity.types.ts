@@ -650,6 +650,60 @@ export type SanityAssetSourceData = {
 
 export type AllSanitySchemaTypes = Navigation | SiteSettings | Contact | Service | Blog | Achievement | Certification | Testimonial | Education | Experience | Skill | Project | Profile | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./app/(portfolio)/layout.tsx
+// Variable: SITE_SETTINGS_QUERY
+// Query: *[_id == "singleton-siteSettings"][0]{  siteTitle,  siteDescription,  siteKeywords,  ogImage,  siteLogo,  favicon,  twitterHandle}
+export type SITE_SETTINGS_QUERYResult = {
+  siteTitle: null;
+  siteDescription: null;
+  siteKeywords: null;
+  ogImage: null;
+  siteLogo: null;
+  favicon: null;
+  twitterHandle: null;
+} | {
+  siteTitle: string | null;
+  siteDescription: string | null;
+  siteKeywords: Array<string> | null;
+  ogImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  siteLogo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  favicon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  twitterHandle: string | null;
+} | null;
+
 // Source: ./components/FloatingDock.tsx
 // Variable: NAVIGATION_QUERY
 // Query: *[_type == "navigation"] | order(order asc){  title,  href,  icon,  isExternal}
@@ -1208,6 +1262,41 @@ export type EXPERIENCE_QUERYResult = Array<{
   companyWebsite: string | null;
 }>;
 
+// Source: ./components/sections/FooterSection.tsx
+// Variable: FOOTER_SITE_SETTINGS_QUERY
+// Query: *[_id == "singleton-siteSettings"][0]{  siteTitle,  footer{    text,    copyrightText,    links[]{      title,      url,      _key    }  }}
+export type FOOTER_SITE_SETTINGS_QUERYResult = {
+  siteTitle: null;
+  footer: null;
+} | {
+  siteTitle: string | null;
+  footer: {
+    text: string | null;
+    copyrightText: string | null;
+    links: Array<{
+      title: string | null;
+      url: string | null;
+      _key: string;
+    }> | null;
+  } | null;
+} | null;
+// Variable: FOOTER_PROFILE_QUERY
+// Query: *[_id == "singleton-profile"][0]{  socialLinks}
+export type FOOTER_PROFILE_QUERYResult = {
+  socialLinks: null;
+} | {
+  socialLinks: {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    website?: string;
+    medium?: string;
+    devto?: string;
+    youtube?: string;
+    stackoverflow?: string;
+  } | null;
+} | null;
+
 // Source: ./components/sections/HeroSection.tsx
 // Variable: HERO_QUERY
 // Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  headline,  headlineStaticText,  headlineAnimatedWords,  headlineAnimationDuration,  shortBio,  email,  phone,  location,  availability,  socialLinks,  yearsOfExperience,  profileImage,  resume{    asset->{      _id,      url,      originalFilename,      extension    }  }}
@@ -1459,6 +1548,7 @@ export type TESTIMONIALS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_id == \"singleton-siteSettings\"][0]{\n  siteTitle,\n  siteDescription,\n  siteKeywords,\n  ogImage,\n  siteLogo,\n  favicon,\n  twitterHandle\n}": SITE_SETTINGS_QUERYResult;
     "*[_type == \"navigation\"] | order(order asc){\n  title,\n  href,\n  icon,\n  isExternal\n}": NAVIGATION_QUERYResult;
     "*[_id == \"singleton-profile\"][0]{\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    firstName,\n    lastName,\n    headline,\n    shortBio,\n    email,\n    phone,\n    location,\n    availability,\n    socialLinks,\n    yearsOfExperience,\n    profileImage\n  }": CHAT_PROFILE_QUERYResult;
     "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  fullBio,\n  yearsOfExperience,\n  stats,\n  email,\n  phone,\n  location\n}": ABOUT_QUERYResult;
@@ -1468,6 +1558,8 @@ declare module "@sanity/client" {
     "*[_id == \"singleton-profile\"][0]{\n  email,\n  phone,\n  location,\n  socialLinks\n}": PROFILE_QUERYResult;
     "*[_type == \"education\"] | order(endDate desc, startDate desc){\n  institution,\n  degree,\n  fieldOfStudy,\n  startDate,\n  endDate,\n  current,\n  gpa,\n  description,\n  achievements,\n  logo,\n  website,\n  order\n}": EDUCATION_QUERYResult;
     "*[_type == \"experience\"] | order(startDate desc){\n  company,\n  position,\n  employmentType,\n  location,\n  startDate,\n  endDate,\n  current,\n  description,\n  responsibilities,\n  achievements,\n  technologies[]->{name, category},\n  companyLogo,\n  companyWebsite\n}": EXPERIENCE_QUERYResult;
+    "*[_id == \"singleton-siteSettings\"][0]{\n  siteTitle,\n  footer{\n    text,\n    copyrightText,\n    links[]{\n      title,\n      url,\n      _key\n    }\n  }\n}": FOOTER_SITE_SETTINGS_QUERYResult;
+    "*[_id == \"singleton-profile\"][0]{\n  socialLinks\n}": FOOTER_PROFILE_QUERYResult;
     "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  headline,\n  headlineStaticText,\n  headlineAnimatedWords,\n  headlineAnimationDuration,\n  shortBio,\n  email,\n  phone,\n  location,\n  availability,\n  socialLinks,\n  yearsOfExperience,\n  profileImage,\n  resume{\n    asset->{\n      _id,\n      url,\n      originalFilename,\n      extension\n    }\n  }\n}": HERO_QUERYResult;
     "*[_type == \"project\" && featured == true] | order(order asc)[0...6]{\n  title,\n  slug,\n  tagline,\n  category,\n  liveUrl,\n  githubUrl,\n  coverImage,\n  technologies[]->{name, category, color}\n}": PROJECTS_QUERYResult;
     "*[_type == \"service\"] | order(order asc, _createdAt desc){\n  title,\n  slug,\n  icon,\n  shortDescription,\n  fullDescription,\n  features,\n  technologies[]->{name, category},\n  deliverables,\n  pricing,\n  timeline,\n  featured,\n  order\n}": SERVICES_QUERYResult;

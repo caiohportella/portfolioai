@@ -38,13 +38,13 @@ const SITE_SETTINGS_QUERY = defineQuery(`*[_id == "singleton-siteSettings"][0]{
 
 export async function generateMetadata(): Promise<Metadata> {
   let settings: {
-    siteTitle?: string;
-    siteDescription?: string;
-    siteKeywords?: string[];
+    siteTitle?: string | null;
+    siteDescription?: string | null;
+    siteKeywords?: string[] | null;
     ogImage?: unknown;
     siteLogo?: unknown;
     favicon?: unknown;
-    twitterHandle?: string;
+    twitterHandle?: string | null;
   } | null = null;
 
   try {
