@@ -24,7 +24,6 @@ export function Chat({
 
     return `Olá! Eu sou ${fullName}. Me pergunte qualquer coisa sobre meu trabalho, experiência ou projetos.`;
   };
-
   const { control } = useChatKit({
     api: {
       getClientSecret: async (_existingSecret) => {
