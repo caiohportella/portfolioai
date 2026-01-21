@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Box, Card, Flex, Grid, Stack, Text, TextInput } from "@sanity/ui";
+import {
+  Box,
+  Card,
+  Flex,
+  Grid,
+  Stack,
+  Text,
+  TextInput,
+} from "@sanity/ui";
 import { set, unset } from "sanity";
 import type { StringInputProps } from "sanity";
 import type { ComponentType } from "react";
@@ -11,22 +19,9 @@ import * as SiIcons from "react-icons/si";
 import * as AiIcons from "react-icons/ai";
 import * as LucideIcons from "lucide-react";
 
-// Custom Zustand icon component (not available in react-icons)
-const SiZustand: ComponentType<{ className?: string }> = ({ className }) => (
-  <img
-    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/zustand/zustand-original.svg"
-    alt="Zustand"
-    className={className}
-    style={{ width: "1em", height: "1em" }}
-  />
-);
-
 // Create a comprehensive icon map
 const createIconMap = () => {
-  const iconMap: Record<string, ComponentType<{ className?: string }>> = {
-    // Add custom icons first
-    SiZustand,
-  };
+  const iconMap: Record<string, ComponentType<{ className?: string }>> = {};
 
   // Add Lucide Icons FIRST (so they're included)
   Object.entries(LucideIcons).forEach(([name, Icon]) => {
@@ -88,7 +83,7 @@ export function IconSelector(props: StringInputProps) {
 
     const query = debouncedQuery.toLowerCase();
     return Object.entries(iconMap).filter(([name]) =>
-      name.toLowerCase().includes(query),
+      name.toLowerCase().includes(query)
     );
   }, [debouncedQuery]);
 
@@ -154,10 +149,7 @@ export function IconSelector(props: StringInputProps) {
                           className="text-center wrap-break-word leading-tight overflow-hidden line-clamp-2 w-full"
                           title={iconName}
                         >
-                          {iconName
-                            .replace(/^Si|^Ai/, "")
-                            .replace(/([A-Z])/g, " $1")
-                            .trim()}
+                          {iconName.replace(/^Si|^Ai/, "").replace(/([A-Z])/g, " $1").trim()}
                         </Text>
                       </Box>
                     </Stack>
@@ -175,3 +167,4 @@ export function IconSelector(props: StringInputProps) {
     </Stack>
   );
 }
+
